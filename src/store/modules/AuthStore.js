@@ -28,9 +28,11 @@ export default {
     async login({ commit }) {
       console.log('DEBUG: Store login called');
       const user = await authservice.login();
-      commit('updateUser', user);
-      commit('updateIsAuthenticated', true);
-      console.log('DEBUG: Store login complete.');
+      if (user !== undefined) {
+        commit('updateUser', user);
+        commit('updateIsAuthenticated', true);
+        console.log('DEBUG: Store login complete.');
+      }
     },
     logout({ commit }) {
       authservice.logout();

@@ -17,7 +17,7 @@ export default {
     },
     logout() {
       this.$store.dispatch('auth/logout');
-    }
+    },
   },
   computed: {
     isLoggedIn() {
@@ -25,7 +25,7 @@ export default {
     },
     user() {
       return this.$store.state.auth.user;
-    }
-  }
+    },
+  },
 };
 </script>
