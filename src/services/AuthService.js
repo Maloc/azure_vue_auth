@@ -36,8 +36,16 @@ export default class AuthService {
     } catch (error) {
       console.log(`Login error ${error}`);
       if (error instanceof Msal.ServerError) {
-        console.log(`Error code: ${error.errorMessage.split(':')[0]}`);
-        await this.resetPassword();
+        const errorCode = error.errorMessage.split(':')[0];
+        switch (errorCode) {
+          case 'AADB2C90118':
+            console.log(`Reset password with code ${errorCode}`);
+            await this.resetPassword();
+            break;
+
+          default:
+            break;
+        }
       }
       return undefined;
     }
@@ -69,8 +77,8 @@ export default class AuthService {
     try {
       const loginResponse = await this.app.loginPopup(loginRequest);
       console.log(`Login was a success ${loginResponse}`);
-    } catch (err) {
-      console.log(`Password reset error ${err}`);
+    } catch (error) {
+      console.log(`Password reset error ${error}`);
     }
   }
 
